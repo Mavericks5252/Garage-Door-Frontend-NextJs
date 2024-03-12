@@ -1,9 +1,11 @@
+'use client'
 import { useEffect, useState } from "react";
 
 export default function WebSocketCall({ socket }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [open, setOpen] = useState("");
+  const [open, setOpen] = useState(0);
+  let status =0;
 
   const handleText = (e) => {
     const inputMessage = e.target.value;
@@ -21,6 +23,7 @@ export default function WebSocketCall({ socket }) {
   useEffect(() => {
     socket.on("data", (data) => {
       setMessages([...messages, data.data]);
+      //console.log(data)
     });
     return () => {
       socket.off("data", () => {
@@ -31,16 +34,15 @@ export default function WebSocketCall({ socket }) {
 
   useEffect(() => {
     socket.on("event", (data) => {
+      setOpen("");
       setOpen(data.data);
-      console.log("0");
     });
     return () => {
-      socket.off("data", () => {
+      socket.off("event", () => {
         console.log("data event was removed");
       });
     };
-  }, [socket, open]);
-
+  }, [socket,open]);
 
   return (
     <div>
@@ -52,6 +54,10 @@ export default function WebSocketCall({ socket }) {
           return <li key={ind}>{message}</li>;
         })}
       </ul>
+      <ul>
+        {open}
+      </ul>
+
     </div>
   );
 }

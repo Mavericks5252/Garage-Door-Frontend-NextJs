@@ -8,6 +8,7 @@ export default function Home() {
   const [socketInstance, setSocketInstance] = useState("");
   const [loading, setLoading] = useState(true);
   const [buttonStatus, setButtonStatus] = useState(false);
+  const [open, setOpen] = useState(0);
 
   const handleClick = () => {
     if (buttonStatus === false) {
@@ -29,7 +30,7 @@ export default function Home() {
       setSocketInstance(socket);
 
       socket.on("connect", (data) => {
-        console.log(data);
+        //console.log(data);
       });
 
       setLoading(false);
@@ -43,6 +44,7 @@ export default function Home() {
       };
     }
   }, [buttonStatus]);
+
 
   return (
     <div className="App">
