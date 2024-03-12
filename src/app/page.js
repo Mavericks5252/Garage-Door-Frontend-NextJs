@@ -1,95 +1,66 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+import HttpCall from "./components/HttpCall";
+import WebSocketCall from "./components/WebSocketCall";
+import { io } from "socket.io-client";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [socketInstance, setSocketInstance] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [buttonStatus, setButtonStatus] = useState(false);
+
+  const handleClick = () => {
+    if (buttonStatus === false) {
+      setButtonStatus(true);
+    } else {
+      setButtonStatus(false);
+    }
+  };
+
+  useEffect(() => {
+    if (buttonStatus === true) {
+      const socket = io("localhost:5001/", {
+        transports: ["websocket"],
+        cors: {
+          origin: "http://localhost:3000/",
+        },
+      });
+
+      setSocketInstance(socket);
+
+      socket.on("connect", (data) => {
+        console.log(data);
+      });
+
+      setLoading(false);
+
+      socket.on("disconnect", (data) => {
+        //console.log(data);
+      });
+
+      return function cleanup() {
+        socket.disconnect();
+      };
+    }
+  }, [buttonStatus]);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <div className="App">
+      <h1>React/Flask App + socket.io</h1>
+      <div className="line">
+        <HttpCall />
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      {!buttonStatus ? (
+        <button onClick={handleClick}>turn chat on</button>
+      ) : (
+        <>
+          <button onClick={handleClick}>turn chat off</button>
+          <div className="line">
+            {!loading && <WebSocketCall socket={socketInstance} />}
+          </div>
+        </>
+      )}
+    </div>
   );
+
 }
