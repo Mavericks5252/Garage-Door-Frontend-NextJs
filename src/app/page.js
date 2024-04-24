@@ -1,16 +1,18 @@
 'use client'
-import Image from "next/image";
+//import Image from "next/image";
 import styles from "./page.module.css";
-import { Button, ButtonGroup, IconButton } from '@chakra-ui/react'
+import { Button, ButtonGroup, IconButton, VStack, background, Image, Box, Center, Container } from '@chakra-ui/react'
+
 import { GiHomeGarage } from "react-icons/gi";
 import { FaLightbulb } from "react-icons/fa";
-import { VStack } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
+import Header from './components/Header'
 
 
 
 export default function Home() {
 	function sendData(relay, value) {
-		fetch('http://raspberrypi.local:8000', {
+		fetch('http://localhost:8000', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -26,9 +28,13 @@ export default function Home() {
 		});
 	}
 	return (
-		<main className={styles.main}>
-			<div>
-				<VStack
+		<Box h='calc(100vh)' bgGradient='/5570834.jpg'>
+			<Box bg ='RGBA(0, 0, 0, 0.64)'>
+			<Header/>
+			</Box>
+				<Box h='calc(100vh)'>
+				<VStack>
+					<HStack
 					spacing={2}
 					allign='stretch'
 				>
@@ -53,8 +59,10 @@ export default function Home() {
 						}}
 
 					/>
+				</HStack>
+				<Image src={'http://localhost:8000/stream'} className="App-logo" />
 				</VStack>
-			</div>
-		</main>
+			</Box>
+		</Box>
 	);
 }

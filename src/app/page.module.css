@@ -164,6 +164,16 @@
     padding: 1rem;
   }
 
+  .landingImage{
+    height: 500px;
+    z-index: 0;
+  }
+
+  .landingBody{
+    position: relative;
+    z-index: 1;
+  }
+
   .description p,
   .description div {
     display: flex;
@@ -228,3 +238,4 @@
     transform: rotate(0deg);
   }
 }
+
