@@ -1,0 +1,72 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@next/next/recommended",
+    "standard-with-typescript"
+    ],
+  "plugins": ["react"],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "import/order": [
+            "warn",
+            {
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ],
+        // warn
+        "camelcase": "off",
+        "n/handle-callback-err": "warn",
+        "no-constant-condition": "warn",
+        "no-return-assign": "warn",
+        "no-tabs": "warn",
+        "no-unmodified-loop-condition": "warn",
+        "no-unneeded-ternary": "warn",
+        // off
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/prefer-nullish-coalescing": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "array-callback-return": "off",
+        "eqeqeq": "off",
+        "react/no-unescaped-entities": "off",
+        "react/prop-types": "off",
+        "no-useless-escape": "off",
+        "space-before-function-paren": "off",
+        "indent": [
+            "warn",
+            4
+        ],
+        "comma-dangle": [
+            "warn",
+            {
+                "arrays": "always",
+                "objects": "always",
+                "imports": "always",
+                "exports": "always",
+                "functions": "never"
+            }
+        ],
+        "object-curly-newline": ["warn", {
+            "ObjectExpression": { "multiline": true, "minProperties": 3 },
+            "ObjectPattern": { "multiline": true, "minProperties": 3 },
+            "ImportDeclaration": "never",
+            "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+        }]
+  },
+  "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+  
+}

@@ -5,6 +5,7 @@ import Logo from "./Logo";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [doorOpen, setDoorOpen] = React.useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -14,6 +15,7 @@ const NavBar = (props) => {
         w="100px"
         color={["white", "white", "primary.500", "primary.500"]}
       />
+      {doorOpen ? (<Text>1</Text>):(<Text>true</Text>)}
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
     </NavBarContainer>

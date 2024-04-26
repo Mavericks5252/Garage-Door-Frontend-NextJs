@@ -2,11 +2,12 @@
 //import Image from "next/image";
 import styles from "./page.module.css";
 import { Button, ButtonGroup, IconButton, VStack, background, Image, Box, Center, Container } from '@chakra-ui/react'
-
+import React from "react";
 import { GiHomeGarage } from "react-icons/gi";
 import { FaLightbulb } from "react-icons/fa";
 import { HStack } from '@chakra-ui/react';
-import Header from './components/Header'
+import Header from './components/Header';
+import { HiMiniArrowsUpDown } from "react-icons/hi2";
 
 
 
@@ -30,7 +31,7 @@ export default function Home() {
 	return (
 		<Box h='calc(100vh)' bgGradient='/5570834.jpg'>
 			<Box bg ='RGBA(0, 0, 0, 0.64)'>
-			<Header/>
+				<Header/>
 			</Box>
 				<Box h='calc(100vh)'>
 				<VStack>
@@ -43,7 +44,7 @@ export default function Home() {
 						w='150px'
 						h='150px'
 						colorScheme='blue'
-						icon={<GiHomeGarage />}
+						icon={<HiMiniArrowsUpDown />}
 						onClick={() => {
 							sendData('door', 1.0);
 						}}
