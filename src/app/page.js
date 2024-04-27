@@ -9,10 +9,10 @@ import { HStack } from '@chakra-ui/react';
 import Header from './components/Header';
 import { HiMiniArrowsUpDown } from "react-icons/hi2";
 
-
-
 export default function Home() {
-	const [message, setMessage] = useState("");
+
+	const [doorStatus, setdoorStatus] = React.useState(false)
+
 	function sendData(relay, value) {
 		fetch('http://localhost:8000', {
 			method: 'POST',
@@ -30,18 +30,25 @@ export default function Home() {
 		});
 	}
 	useEffect(() => {
-		fetch('http://localhost:8000', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		}).then(res => res.json ())
-		.then(data=>{console.log(data)})
+		setInterval(() => {
+			const res = fetch('http://localhost:8000', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				}
+			},{ next: { revalidate: 5 }})
+			.then(res => res.json(),  res=> console.log(res))
+			.then(data=>{setdoorStatus(data.DoorStatus)});
+		}, 2000)
 		//map((response) => response.json())
 		//.do(value => console.log(value))
 			//let response1 = response.json()
 			//console.log(Object.getOwnPropertyNames(response1))
-	}, [])
+	})
+
+	function testDoorHandler(){
+		console.log(doorStatus)
+	}
 	return (
 		<Box h='calc(100vh)' bgGradient='/5570834.jpg'>
 			<Box bg ='RGBA(0, 0, 0, 0.64)'>
@@ -76,6 +83,7 @@ export default function Home() {
 					/>
 				</HStack>
 				<Image src={'http://localhost:8000/stream'} className="App-logo" />
+				<Button onClick={testDoorHandler}>test</Button>
 				</VStack>
 			</Box>
 		</Box>
