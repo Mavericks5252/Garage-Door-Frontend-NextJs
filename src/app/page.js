@@ -1,13 +1,15 @@
 'use client'
 //import Image from "next/image";
 import styles from "./page.module.css";
-import { Button, ButtonGroup, IconButton, VStack, background, Image, Box, Center, Container } from '@chakra-ui/react'
+import { Button, ButtonGroup, IconButton, VStack, background, Image, Box, Center, Container, Icon, Text } from '@chakra-ui/react'
 import React, {useEffect, useState} from "react";
 import { GiHomeGarage } from "react-icons/gi";
 import { FaLightbulb } from "react-icons/fa";
 import { HStack } from '@chakra-ui/react';
 import Header from './components/Header';
 import { HiMiniArrowsUpDown } from "react-icons/hi2";
+//import { CircleIcon } from "../theme/circleIcon";
+
 
 export default function Home() {
 
@@ -46,6 +48,16 @@ export default function Home() {
 			//console.log(Object.getOwnPropertyNames(response1))
 	})
 
+
+	const CircleIcon = (props) => (
+		<Icon viewBox='0 0 200 200' {...props}>
+		  <path
+			fill='currentColor'
+			d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
+		  />
+		</Icon>
+	  )
+
 	function testDoorHandler(){
 		console.log(doorStatus)
 	}
@@ -81,6 +93,10 @@ export default function Home() {
 						}}
 
 					/>
+				</HStack>
+				<HStack>
+					<CircleIcon boxSize={8} color={doorStatus ? ('green') : ('red.500')} />
+					<Text color ='white'>The Door is {doorStatus ? ('closed') : ('open')}</Text>
 				</HStack>
 				<Image src={'http://localhost:8000/stream'} className="App-logo" />
 				<Button onClick={testDoorHandler}>test</Button>

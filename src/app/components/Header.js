@@ -15,7 +15,6 @@ const NavBar = (props) => {
         w="100px"
         color={["white", "white", "primary.500", "primary.500"]}
       />
-      {doorOpen ? (<Text>1</Text>):(<Text>true</Text>)}
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
     </NavBarContainer>
