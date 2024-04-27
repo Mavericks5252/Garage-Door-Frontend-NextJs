@@ -35,7 +35,7 @@ export default function Signup () {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [plate, setPlate] = useState('')
     const [alerts, setAlerts] = useState(false)
-    const [logs, setLogs] = useState(false)
+    const [logs, setLogs] = React.useState(false)
 
     const handleUsernameChange = (e) => {
         e.preventDefault()
@@ -53,13 +53,6 @@ export default function Signup () {
     const handlePlateChange = (e) => {
         e.preventDefault()
         setPlate(e.target.value)
-    }
-
-    const handleAlertChange = (e) => {
-        setAlerts(e.target.value)
-    }
-    const handleLogChange = (e) => {
-        setLogs(e.target.value)
     }
 
     function SubmitData () {
@@ -173,11 +166,11 @@ export default function Signup () {
                                             <VStack>
                                                 <FormLabel htmlFor='phone-alerts' mb='0'>
                                     Enable text alerts?
-                                                    <Switch id='phone-alerts' onChange={handleAlertChange} value={alerts}/>
+                                                    <Switch id='phone-alerts' onChange={() => setAlerts(!alerts)}/>
                                                 </FormLabel>
                                                 <FormLabel htmlFor='logs' mb='0'>
                                     Enable Logs
-                                                    <Switch id='logs' onChange={(e) => onChange(e.target.checked)} isChecked={logs}/>
+                                                    <Switch id='logs' onChange={() => setLogs(!logs)} />
                                                 </FormLabel>
                                             </VStack>
                                         </FormControl>
