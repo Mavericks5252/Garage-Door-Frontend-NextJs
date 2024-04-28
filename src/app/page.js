@@ -1,18 +1,19 @@
 'use client'
 //import Image from "next/image";
 import styles from "./page.module.css";
-import { Button, ButtonGroup, IconButton, VStack, background, Image, Box, Center, Container, Icon, Text, AspectRatio } from '@chakra-ui/react'
-import React, {useEffect, useState} from "react";
+import { Button, ButtonGroup, IconButton, VStack, background, Image, Box, Center, Container, Icon, Text, AspectRatio, Flex } from '@chakra-ui/react'
+import React, {useEffect, useState, useRef} from "react";
 import { GiHomeGarage } from "react-icons/gi";
 import { FaLightbulb } from "react-icons/fa";
-import { HStack } from '@chakra-ui/react';
+import { HStack,useDimensions } from '@chakra-ui/react';
 import Header from './components/Header';
 import { HiMiniArrowsUpDown } from "react-icons/hi2";
 //import { CircleIcon } from "../theme/circleIcon";
 
 
 export default function Home() {
-
+	const elementRef = useRef()
+	const dimensions = useDimensions(elementRef, true)
 	const [doorStatus, setdoorStatus] = React.useState(false)
 
 	function sendData(relay, value) {
@@ -62,20 +63,22 @@ export default function Home() {
 		console.log(doorStatus)
 	}
 	return (
-		<Box h='calc(100vh)' bgGradient='/5570834.jpg'>
+		<Container maxW='100%' minHeight="100vh">
+		<Box bg = 'rgb(2,0,36)' bgGradient='linear-gradient(176deg, rgba(2,0,36,1) 0%, rgba(9,36,121,1) 73%, rgba(0,212,255,1) 100%)' overflow={'show'} minHeight="100vh">
 			<Box bg ='RGBA(0, 0, 0, 0.64)'>
 				<Header/>
 			</Box>
-				<Box h='calc(100vh)'>
+				<Box h='80%' ref ={elementRef}>
 				<VStack>
 					<HStack
 					spacing={2}
 					allign='stretch'
 				>
 					<IconButton
-						fontSize='150px'
-						w='150px'
-						h='150px'
+						//fontSize='20px'
+						fontSize={dimensions && dimensions.borderBox.width * 0.075}
+						w={dimensions && dimensions.borderBox.width * 0.1}
+						h={dimensions && dimensions.borderBox.width * 0.1}
 						colorScheme='blue'
 						icon={<HiMiniArrowsUpDown />}
 						onClick={() => {
@@ -83,9 +86,9 @@ export default function Home() {
 						}}
 					/>
 					<IconButton
-						fontSize='150px'
-						w='150px'
-						h='150px'
+						fontSize={dimensions && dimensions.borderBox.width * 0.075}
+						w={dimensions && dimensions.borderBox.width * 0.1}
+						h={dimensions && dimensions.borderBox.width * 0.1}
 						colorScheme='blue'
 						icon={<FaLightbulb />}
 						onClick={() => {
@@ -98,12 +101,13 @@ export default function Home() {
 					<CircleIcon boxSize={8} color={doorStatus ? ('green') : ('red.500')} />
 					<Text color ='white'>The Door is {doorStatus ? ('closed') : ('open')}</Text>
 				</HStack>
-				<AspectRatio maxW='400px' ratio={16 / 9} width='80%'>
+				<AspectRatio ratio={16 / 9} width='80%'>
 					<Image src={'http://localhost:8000/stream'} className="App-logo" />
 				</AspectRatio>
 				<Button onClick={testDoorHandler}>test</Button>
 				</VStack>
 			</Box>
 		</Box>
+		</Container>
 	);
 }
