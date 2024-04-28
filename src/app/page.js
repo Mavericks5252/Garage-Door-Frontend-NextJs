@@ -1,7 +1,7 @@
 'use client'
 //import Image from "next/image";
 import styles from "./page.module.css";
-import { Button, ButtonGroup, IconButton, VStack, background, Image, Box, Center, Container, Icon, Text } from '@chakra-ui/react'
+import { Button, ButtonGroup, IconButton, VStack, background, Image, Box, Center, Container, Icon, Text, AspectRatio } from '@chakra-ui/react'
 import React, {useEffect, useState} from "react";
 import { GiHomeGarage } from "react-icons/gi";
 import { FaLightbulb } from "react-icons/fa";
@@ -98,7 +98,9 @@ export default function Home() {
 					<CircleIcon boxSize={8} color={doorStatus ? ('green') : ('red.500')} />
 					<Text color ='white'>The Door is {doorStatus ? ('closed') : ('open')}</Text>
 				</HStack>
-				<Image src={'http://localhost:8000/stream'} boxSize='200px' className="App-logo" />
+				<AspectRatio maxW='400px' ratio={16 / 9} width='80%'>
+					<Image src={'http://localhost:8000/stream'} className="App-logo" />
+				</AspectRatio>
 				<Button onClick={testDoorHandler}>test</Button>
 				</VStack>
 			</Box>
