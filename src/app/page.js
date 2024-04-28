@@ -98,7 +98,7 @@ export default function Home() {
 					<CircleIcon boxSize={8} color={doorStatus ? ('green') : ('red.500')} />
 					<Text color ='white'>The Door is {doorStatus ? ('closed') : ('open')}</Text>
 				</HStack>
-				<Image src={'http://localhost:8000/stream'} className="App-logo" />
+				<Image src={'http://localhost:8000/stream'} boxSize='200px' className="App-logo" />
 				<Button onClick={testDoorHandler}>test</Button>
 				</VStack>
 			</Box>
