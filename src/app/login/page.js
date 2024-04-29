@@ -4,10 +4,8 @@ import { redirect } from 'next/dist/server/api-utils'
 import React, { useState, } from 'react'
 
 export default function Login () {
-
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
 
     const handleUsernameChange = (e) => {
         e.preventDefault()
@@ -20,8 +18,25 @@ export default function Login () {
     function SubmitData () {
         console.log(username)
         console.log(password)
+        makeToken(username, password)
+    }
 
-        redirect(`/dashboard/${user?.uuid}`)
+    function makeToken (username, password) {
+        fetch('http://localhost:8000/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json',
+			},
+            body: JSON.stringify({
+                username,
+                password,
+            })
+        }).then((response) => {
+            if (!response.ok) {
+                console.error('Error sending data:', response, statusText)
+            } else {
+                console.log(response)
+            }
+        })
     }
     return (
         <Box h='calc(100vh)' bgGradient='/5570834.jpg' color ='white'>
@@ -50,6 +65,4 @@ export default function Login () {
             </Container>
         </Box>
     )
-
-
 }

@@ -66,125 +66,123 @@ export default function Signup () {
     const usernameError = username.length < 5
     const passwordError = password.length < 5
 
-    const telephoneError = phoneNumber.length < 10
-    const plateError = plate.length < 3
+    const telephoneError = phoneNumber.length != 10
+    const plateError = plate.length < 2 | plate.length > 7
     // Setup conditional render
     return (
-        <Box h='calc(100vh)' bgGradient='/5570834.jpg' color ='white'>
-            <Container>
-                <Center bg = 'RGBA(255, 255, 255, 0.24)' borderWidth='1px' borderRadius='lg' >
-                    <HStack>
-                        <Stepper index={step} orientation='vertical' height='400px' gap='0' colorScheme={'blue'}>
-                            {steps.map((step, index) => (
-                                <Step key={index}>
-                                    <StepIndicator>
-                                        <StepStatus
-                                            complete={<StepIcon />}
-                                            incomplete={<StepNumber />}
-                                            active={<StepNumber />}
-                                        />
-                                    </StepIndicator>
+        <Container>
+            <Center bg = 'RGBA(0, 0, 0, 0.01)' borderWidth='1px' borderRadius='lg' color='white'>
+                <HStack>
+                    <Stepper index={step} orientation='vertical' height='400px' gap='0' colorScheme={'blue'}>
+                        {steps.map((step, index) => (
+                            <Step key={index}>
+                                <StepIndicator>
+                                    <StepStatus
+                                        complete={<StepIcon />}
+                                        incomplete={<StepNumber />}
+                                        active={<StepNumber />}
+                                    />
+                                </StepIndicator>
 
-                                    <Box flexShrink='0'>
-                                        <StepTitle>{step.title}</StepTitle>
-                                    </Box>
-                                    <StepSeparator />
-                                </Step>
-                            ))}
-                        </Stepper>
-                        {(() => {
-                            switch (step) {
-                            case 1 :
-                                return <Box>
-                                    <VStack>
-                                        <FormControl>
-                                            <FormLabel>Username</FormLabel>
-                                            <Input
-                                                variant='flushed'
-                                                placeholder='username'
-                                                onChange={handleUsernameChange}
-                                                value ={username}
-                                                isInvalid = {usernameError}
-                                                errorBorderColor='crimson'
-                                            /> {usernameError
-                                                ? (
-                                                    <FormHelperText>Username is less then 5 characters
-                                                    </FormHelperText>)
-                                                : (
-                                                    <FormHelperText>
-                                                    </FormHelperText>)}
-                                        </FormControl>
-                                        <FormControl>
-                                            <FormLabel>Password</FormLabel>
-                                            <Input
-                                                variant='flushed'
-                                                placeholder='password'
-                                                onChange={handlePasswordChange}
-                                                value ={password}
-                                                isInvalid = {passwordError}
-                                                errorBorderColor='crimson'
-                                            /> {passwordError
-                                                ? (
-                                                    <FormHelperText>Password is less then 5 characters
-                                                    </FormHelperText>)
-                                                : (
-                                                    <FormHelperText>
-                                                    </FormHelperText>)}
-                                        </FormControl>
-                                        <Button
-                                            isDisabled={passwordError | usernameError}
-                                            onClick={handleClick}
-                                            colorScheme={'green'}>
+                                <Box flexShrink='0'>
+                                    <StepTitle>{step.title}</StepTitle>
+                                </Box>
+                                <StepSeparator />
+                            </Step>
+                        ))}
+                    </Stepper>
+                    {(() => {
+                        switch (step) {
+                        case 1 :
+                            return <Box>
+                                <VStack>
+                                    <FormControl>
+                                        <FormLabel>Username</FormLabel>
+                                        <Input
+                                            variant='flushed'
+                                            placeholder='username'
+                                            onChange={handleUsernameChange}
+                                            value ={username}
+                                            isInvalid = {usernameError}
+                                            errorBorderColor='crimson'
+                                        /> {usernameError
+                                            ? (
+                                                <FormHelperText>Username is less then 5 characters
+                                                </FormHelperText>)
+                                            : (
+                                                <FormHelperText>
+                                                </FormHelperText>)}
+                                    </FormControl>
+                                    <FormControl>
+                                        <FormLabel>Password</FormLabel>
+                                        <Input
+                                            variant='flushed'
+                                            placeholder='password'
+                                            onChange={handlePasswordChange}
+                                            value ={password}
+                                            isInvalid = {passwordError}
+                                            errorBorderColor='crimson'
+                                        /> {passwordError
+                                            ? (
+                                                <FormHelperText>Password is less then 5 characters
+                                                </FormHelperText>)
+                                            : (
+                                                <FormHelperText>
+                                                </FormHelperText>)}
+                                    </FormControl>
+                                    <Button
+                                        isDisabled={passwordError | usernameError}
+                                        onClick={handleClick}
+                                        colorScheme={'green'}>
                                             Submit
-                                        </Button>
-                                    </VStack>
-                                </Box>
-                            case 2:
-                                return <Box>
-                                    <VStack>
-                                        <FormControl>
-                                            <FormLabel>Plate Number</FormLabel>
-                                            <Input variant='flushed' value={plate} onChange={handlePlateChange} />
-                                            <FormHelperText>Enter a licence plate number</FormHelperText>
-                                        </FormControl>
-                                        <FormControl>
-                                            <FormLabel>Phone Number</FormLabel>
-                                            <Input type='tel' variant='flushed' value ={phoneNumber} onChange={handlePhoneNumberChange}/>
-                                            <FormHelperText>Enter a phone number</FormHelperText>
-                                        </FormControl>
-                                        <Button
-                                            isDisabled={telephoneError | plateError}
-                                            onClick={handleClick}
-                                            colorScheme={'green'}>
+                                    </Button>
+                                </VStack>
+                            </Box>
+                        case 2:
+                            return <Box>
+                                <VStack>
+                                    <FormControl>
+                                        <FormLabel>Plate Number</FormLabel>
+                                        <Input variant='flushed' value={plate} onChange={handlePlateChange} />
+                                        <FormHelperText>Enter a licence plate number</FormHelperText>
+                                    </FormControl>
+                                    <FormControl>
+                                        <FormLabel>Phone Number</FormLabel>
+                                        <Input type='tel' variant='flushed' value ={phoneNumber} onChange={handlePhoneNumberChange}/>
+                                        <FormHelperText>Enter a phone number</FormHelperText>
+                                    </FormControl>
+                                    <Button
+                                        isDisabled={telephoneError | plateError}
+                                        onClick={handleClick}
+                                        colorScheme={'green'}>
                                             Submit</Button>
-                                    </VStack>
-                                </Box>
-                            case 3:
-                                return <Box>
-                                    <VStack>
-                                        <FormControl display='flex' alignItems='center'>
-                                            <VStack>
-                                                <FormLabel htmlFor='phone-alerts' mb='0'>
+                                </VStack>
+                            </Box>
+                        case 3:
+                            return <Box>
+                                <VStack>
+                                    <FormControl display='flex' alignItems='center'>
+                                        <VStack>
+                                            <FormLabel htmlFor='phone-alerts' mb='0'>
                                     Enable text alerts?
-                                                    <Switch id='phone-alerts' onChange={() => setAlerts(!alerts)}/>
-                                                </FormLabel>
-                                                <FormLabel htmlFor='logs' mb='0'>
+                                                <Switch id='phone-alerts' onChange={() => { setAlerts(!alerts) }}/>
+                                            </FormLabel>
+                                            <FormLabel htmlFor='logs' mb='0'>
                                     Enable Logs
-                                                    <Switch id='logs' onChange={() => setLogs(!logs)} />
-                                                </FormLabel>
-                                            </VStack>
-                                        </FormControl>
-                                        <Button onClick={SubmitData}>Finish</Button>
-                                    </VStack>
+                                                <Switch id='logs' onChange={() => { setLogs(!logs) }} />
+                                            </FormLabel>
+                                        </VStack>
+                                    </FormControl>
+                                    <Button onClick={SubmitData}>Finish</Button>
+                                </VStack>
 
-                                </Box>
-                            default:
-                                return null
-                            }
-                        })()}
-                    </HStack>
-                </Center>
-            </Container>
-        </Box>
+                            </Box>
+                        default:
+                            return null
+                        }
+                    })()}
+                </HStack>
+            </Center>
+        </Container>
     )
 }
